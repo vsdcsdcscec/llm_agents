@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 from llm_agents.tools.base import ToolInterface
 
-
 ENDPOINT = "https://hn.algolia.com/api/v1/search_by_date"
 
 
@@ -31,7 +30,7 @@ def search_hn(query: str, crawl_urls: bool) -> str:
         title = hit["title"]
         url = hit["url"]
         result += f"Title: {title}\n"
-        
+
         if url is not None and crawl_urls:
             result += f"\tExcerpt: {extract_text_from(url)}\n"
         else:
@@ -39,7 +38,7 @@ def search_hn(query: str, crawl_urls: bool) -> str:
             comments_url = f"{ENDPOINT}?tags=comment,story_{objectID}&hitsPerPage=1"
             comments_response = requests.get(comments_url)
             comment = comments_response.json()["hits"][0]['comment_text']
-            
+
             result += f"\tComment: {comment}\n"
     return result
 
@@ -47,9 +46,9 @@ def search_hn(query: str, crawl_urls: bool) -> str:
 class HackerNewsSearchTool(ToolInterface):
     """Tool to get some insight from Hacker News users"""
 
-    name = "hacker news search"
-    description = "Get insight from hacker news users to specific search terms. Input should be a search term (e.g. How to get rich?). The output will be the most recent stories related to it with a user comment."
-    crawl_urls = False
+    name: str = "hacker news search"
+    description: str = "Get insight from hacker news users to specific search terms. Input should be a search term (e.g. How to get rich?). The output will be the most recent stories related to it with a user comment."
+    crawl_urls: bool = False
 
     def use(self, input_text: str) -> str:
         return search_hn(input_text, self.crawl_urls)

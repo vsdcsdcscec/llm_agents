@@ -16,7 +16,7 @@ def search(query: str) -> str:
         "gl": "us",
         "hl": "en",
         "q": query,
-        "api_key": os.environ["SERPAPI_API_KEY"]
+        "api_key": "db0bf7030bd243a9b44bf49646c197325e27731fe4daeda7760e454b7b331d27"
     }
 
     with HiddenPrints():
@@ -74,8 +74,8 @@ class HiddenPrints:
 class SerpAPITool(ToolInterface):
     """Tool for Google search results."""
 
-    name = "Google Search"
-    description = "Get specific information from a search query. Input should be a  question like 'How to add number in Clojure?'. Result will be the answer to the question."
+    name : str = "Google Search"
+    description : str = "Get specific information from a search query. Input should be a  question like 'How to add number in Clojure?'. Result will be the answer to the question."
 
     def use(self, input_text: str) -> str:
         return search(input_text) 

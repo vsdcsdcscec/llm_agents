@@ -8,7 +8,7 @@ from typing import List
 class ChatLLM(BaseModel):
     model: str = 'gpt-3.5-turbo'
     temperature: float = 0.0
-    openai.api_key = os.environ["OPENAI_API_KEY"]  # Credentials setup
+    openai.api_key = "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"  # Credentials setup
 
     def generate(self, prompt: str, stop: List[str] = None):
         response = openai.ChatCompletion.create(
